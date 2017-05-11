@@ -62,7 +62,18 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
+% Part 1
 
+y_matrix = eye(num_labels)(y,:)'
+A1 = [ones(m, 1) X];
+Z2 = Theta1 * A1';
+A2 = sigmoid(Z2');
+m2 = size(A2, 1);
+A2 = [ones(m2, 1) A2]
+Z3 = Theta2 * A2';
+A3 = sigmoid(Z3')
+J_parts = -y_matrix .* log(A3') - (1 - y_matrix) .* log (1 - A3') 
+J = sum(J_parts(:)) / m
 
 
 
