@@ -62,7 +62,7 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
-% Part 1
+% Note: I did the vector version while the assignment asked for the loop version.
 
 %y_matrix = eye(num_labels)(y,:)'; 
 y_matrix = [[1:num_labels] == y]';
@@ -81,26 +81,19 @@ Theta2_squares_sum = sum(Theta2_squares(:));
 J = sum(J_parts(:)) / m + (Theta1_squares_sum + Theta2_squares_sum) * lambda / (2 * m);
 D3 = A3 - y_matrix';
 D2 = [[Theta2' * D3'](2:end, :) .* sigmoidGradient(Z2)]';
-Theta2_grad = D3' * A2;
-Theta1_grad = D2' * A1;
-
-%for i = 1:m
-%	a1 = [1; X(i, :)'];
-%	z2 = Theta1 * a1;
-%	a2 = sigmoid (z2);
-%	a2 = [1; a2];
-%	z3 = Theta2 * a2;
-%	a3 = sigmoid(z3);
-%	d3 = a3 - y_matrix(:, i)
-%	d2 = [Theta2' * d3](2:end, :) .* sigmoidGradient(z2)
-%endfor
+Delta2 = D3' * A2;
+Delta1 = D2' * A1;
+Theta2_grad = Delta2/m;
+Theta1_grad = Delta1/m;
+Theta2_grad(:, 2:end) = Theta2_grad(:, 2:end) .+ (Theta2(:, 2:end) * lambda / m);
+Theta1_grad(:, 2:end) = Theta1_grad(:, 2:end) .+ (Theta1(:, 2:end) * lambda / m);
 
 % -------------------------------------------------------------
 
 % =========================================================================
 
 % Unroll gradients
-grad = [Theta1_grad(:) ; Theta2_grad(:)]/m;
+grad = [Theta1_grad(:) ; Theta2_grad(:)];
 
 
 end
