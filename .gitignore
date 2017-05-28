@@ -1,6 +1,6 @@
 .DS_Store
 *.swp
-*.mat 
+token.mat 
 
 # Session info
 octave-workspace
