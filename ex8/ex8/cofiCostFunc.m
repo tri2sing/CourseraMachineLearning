@@ -39,21 +39,10 @@ Theta_grad = zeros(size(Theta));
 %        Theta_grad - num_users x num_features matrix, containing the 
 %                     partial derivatives w.r.t. to each element of Theta
 %
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+predictions = X * Theta'; % this is written differently than how it is on paper where is it Theta' * x(i)
+errors = predictions - Y;
+reduction = errors .* R; % Use an error only of R(i, j) == 1
+J = sum(sum(reduction .^ 2) / 2);
 
 % =============================================================
 
