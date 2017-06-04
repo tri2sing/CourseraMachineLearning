@@ -42,7 +42,7 @@ Theta_grad = zeros(size(Theta));
 predictions = X * Theta'; % this is written differently than how it is on paper where is it Theta' * x(i)
 errors = predictions - Y; % num_movies x num_users
 errors_filtered = errors .* R; % Use an error only of R(i, j) == 1
-J = sum(sum(errors_filtered .^ 2) / 2);
+J = sum(sum(errors_filtered .^ 2) / 2) + (sum((Theta .* Theta)(:)) + sum((X .* X)(:))) * lambda / 2;
 
 X_grad = errors_filtered * Theta;
 Theta_grad = errors_filtered' * X;
